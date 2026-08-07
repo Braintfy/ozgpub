@@ -801,6 +801,13 @@ button:focus-visible {
   display: none;
 }
 
+/* v5.9.61: копирование лога. Кнопка живёт в кликабельной шапке, поэтому она
+   прижата вправо и гасит всплытие клика (иначе лог сворачивался бы). */
+.log-section .log-header .log-copy {
+  margin-left: auto;
+  font-size: 12px;
+}
+
 .log-body {
   max-height: 140px;
   overflow-y: auto;
