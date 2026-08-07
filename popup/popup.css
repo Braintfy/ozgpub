@@ -2333,3 +2333,57 @@ button:focus-visible {
   font-size: 10px;
   color: var(--danger);
 }
+
+/* ── Плашка «Ozon изменил интерфейс чата» (v5.9.58) ────────────────────
+   Строится на .hint-banner.hint-warning: те же токены, тот же крестик. */
+.iface-alert {
+  border-left-width: 3px;
+  margin: 0 0 var(--s2);
+}
+.iface-alert-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.iface-alert-title {
+  font-weight: 600;
+  color: var(--warn-text);
+}
+.iface-alert-details {
+  font-size: 10px;
+  line-height: 1.4;
+  opacity: 0.85;
+  word-break: break-word;
+}
+.iface-alert-details:empty { display: none; }
+.iface-alert-link {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 3px 10px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--warn-text);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.iface-alert-link:hover {
+  background: var(--warn-line);
+  color: var(--text);
+}
+/* Свой крестик, а не .hint-close: у плашки нет ключа dismissedHints и её
+   видимостью управляет только класс .hidden (см. renderInterfaceAlert). */
+.iface-alert-close {
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.4;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0 2px;
+  line-height: 1;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.iface-alert-close:hover { opacity: 1; }
