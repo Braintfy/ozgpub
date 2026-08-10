@@ -360,6 +360,18 @@
 
     <div class="settings-section-label">Жалобы</div>
 
+    <!-- v5.9.62: одно значение с полем на вкладке Жалобы, общий storage-ключ -->
+    <section class="settings-group opt-group opt-group--flat" id="brandNameSettingsSection">
+      <div class="opt-group-title">Название бренда</div>
+      <div class="opt-group-body">
+        <div class="field">
+          <label class="field-label" for="brandNameSettingsInput">Бренд для пути «Мой бренд»</label>
+          <input type="text" id="brandNameSettingsInput" placeholder="Например: Restoremind" maxlength="120" aria-describedby="brandNameHintSettings">
+          <span id="brandNameHintSettings" class="opt-row-note">Ozon спрашивает название бренда в ветке «Использование моего бренда». Пишите точно как в разделе Товары → Документы на бренды. Бот отвечает, что документы на бренд уже загружены в ЛК — загрузите их заранее.</span>
+        </div>
+      </div>
+    </section>
+
     <section class="settings-group opt-group opt-group--flat">
       <div class="opt-group-title">Магазины-исключения</div>
       <div class="opt-group-body">
@@ -524,6 +536,12 @@
           <span class="opt-row-title">Отправлять несколько</span>
         </label>
         <span id="complaintEvidenceBatchHint" class="opt-row-note opt-row-note--indent">Все подходящие доказательства уходят одним сообщением. Персональный набор родительского SKU в приоритете.</span>
+        <!-- v5.9.62: видно только для пути «Мой бренд» — Ozon спрашивает название бренда -->
+        <div id="brandNameFieldComplaint" class="field hidden">
+          <label class="field-label" for="brandNameInput">Название бренда</label>
+          <input type="text" id="brandNameInput" placeholder="Например: Restoremind" maxlength="120" aria-describedby="brandNameHintComplaint">
+          <span id="brandNameHintComplaint" class="opt-row-note">Точно как в разделе Товары → Документы на бренды. Бот ответит, что документы на бренд загружены в ЛК — загрузите их заранее.</span>
+        </div>
       </div>
     </section>
 
