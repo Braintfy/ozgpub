@@ -188,6 +188,16 @@
           <span class="opt-row-title">Только продавцы из Китая <span class="country-code-badge">CN</span></span>
         </label>
         <span class="opt-row-note opt-row-note--indent">Продавцы без подтверждённой метки CN не попадут в результаты.</span>
+        <!-- v5.9.63: фильтр по цене применяется в момент переноса в жалобы -->
+        <label class="opt-row">
+          <input type="checkbox" id="cheaperOnlyEnabled" aria-describedby="cheaperOnlyHint">
+          <span class="opt-row-title">В жалобы — только дешевле моего товара</span>
+        </label>
+        <span id="cheaperOnlyHint" class="opt-row-note opt-row-note--indent">Порог = цена вашего товара + процент ниже. Карточки дороже порога остаются в результатах, но в жалобы не переносятся. Карточки без цены переносятся всегда. К списку SKU, загруженному из файла, фильтр не применяется — в файле нет цен.</span>
+        <div class="field hidden" id="cheaperOnlyPercentField">
+          <label class="field-label" for="cheaperOnlyPercent">Допуск к цене моего товара, %</label>
+          <input type="number" id="cheaperOnlyPercent" min="0" max="500" step="1" value="30" inputmode="numeric">
+        </div>
       </div>
     </section>
 
