@@ -1430,6 +1430,10 @@ button:focus-visible {
   align-items: flex-start;
   gap: 6px;
   flex: 1;
+  min-width: 0;
+  /* v5.9.67: та же мера строки, что и у .opt-row-note — подсказки на 740px
+     не должны тянуться во всю ширину окна. */
+  max-width: 92ch;
 }
 .hint-banner-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .hint-close {
@@ -2098,8 +2102,10 @@ button:focus-visible {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-md);
-  padding: 10px var(--s3) var(--s3);
-  margin: 0 0 10px;
+  /* v5.9.67: плотность после расширения до 740px — на широком окне прежние
+     отступы читались как «растянутый» интерфейс (репорт владельца). */
+  padding: 8px var(--s3) 10px;
+  margin: 0 0 8px;
 }
 .opt-group--flat { background: transparent; }
 .opt-group--accent { border-color: #b9d5ff; background: #f7faff; }
@@ -2120,7 +2126,23 @@ button:focus-visible {
 .opt-group-body {
   display: flex;
   flex-direction: column;
-  gap: var(--s2);
+  gap: 6px;
+}
+
+/* v5.9.67: две колонки опций на широком окне. Колонка — самостоятельный
+   flex-столбец, поэтому подпись и её примечание НИКОГДА не расходятся по
+   разным колонкам (наивный grid по детям разорвал бы пару). */
+.opt-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 6px var(--s4);
+  align-items: start;
+}
+.opt-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 /* Внутри группы вертикальный ритм задаёт gap — гасим чужие margin-ы */
 .opt-group-body > .hint-banner { margin-top: 0; margin-bottom: 0; }
@@ -2158,6 +2180,9 @@ button:focus-visible {
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
+  /* v5.9.67: длинная строка во всю ширину 740px читается плохо — глаз теряет
+     начало следующей. Ограничиваем меру строки, а не ширину блока. */
+  max-width: 86ch;
 }
 .opt-row-note--indent { margin-left: 23px; margin-top: -4px; }
 
@@ -2406,8 +2431,53 @@ button:focus-visible {
 .complaint-list-head {
   justify-content: space-between;
   cursor: pointer;
+  flex-wrap: wrap;
 }
 .complaint-list-head .badge-sm { margin-left: 4px; }
+.complaint-list-name { white-space: nowrap; }
+/* Кнопки шапки списка: сюда переехало всё, что раньше жило вокруг textarea. */
+.complaint-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.complaint-add-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px dashed var(--line-dash);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+.complaint-add-zone textarea { margin-bottom: 0; }
+.complaint-add-zone .opt-actions-row { margin-top: 0; }
+
+/* Удаление одного артикула из списка (замена ручной правки textarea) */
+.queue-remove {
+  /* margin-left:auto НЕТ намеренно: он есть у .queue-error, и во flex место
+     делилось бы между ними — крестик повисал посреди строки. */
+  margin-left: 4px;
+  border: none;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0 2px;
+  font-family: inherit;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.queue-item { position: relative; }
+.queue-item .queue-remove { margin-left: auto; }
+.queue-item .queue-error + .queue-remove { margin-left: 4px; }
+.queue-item:hover .queue-remove { opacity: 1; }
+.queue-remove:hover { color: var(--danger); }
 #complaintListSection.collapsed #complaintListBody { display: none; }
 #complaintListSection.collapsed .btn-icon-toggle { transform: rotate(-90deg); }
 
