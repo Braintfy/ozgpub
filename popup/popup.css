@@ -2704,6 +2704,28 @@ button:focus-visible {
 .saved-parent-pick:hover { background: var(--brand-tint); }
 .saved-parent-pick .saved-parent-sku { font-size: 11px; }
 
+/* ── v5.9.68: накопительный дайджест «что нового» ────────────────────── */
+.whatsnew-digest {
+  display: block;
+  max-height: 190px;      /* баннер не должен вытеснять рабочую часть окна */
+  overflow-y: auto;
+  margin-top: 6px;
+  padding-right: 4px;
+}
+/* span-элементы: хост лежит внутри <span> баннера, блочная модель задаётся
+   здесь, а не тегами (иначе невалидная вложенность). */
+.whatsnew-digest-ver {
+  display: block;
+  margin-bottom: 6px;
+}
+.whatsnew-digest-ver:last-child { margin-bottom: 0; }
+.whatsnew-digest-item {
+  display: block;
+  margin: 2px 0 0 8px;
+  text-indent: -8px;
+  padding-left: 8px;
+}
+
 /* ── v5.9.66 (F4): очередь артикулов с карточек ozon.ru ──────────────── */
 .picked-preview {
   display: block;
