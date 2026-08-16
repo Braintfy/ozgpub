@@ -37,7 +37,10 @@
 }
 
 body {
-  width: 420px;
+  /* v5.9.66 (F6): Chrome ограничивает popup 800×600. Берём 740 — списки жалоб,
+     кластеры и таблица каталога перестают ломаться в две строки, а запас 60px
+     оставлен под полосу прокрутки и рамку окна на Win11. */
+  width: 740px;
   min-height: 300px;
   max-height: 600px;
   overflow-y: auto;
@@ -49,7 +52,7 @@ body {
 
 header {
   display: flex;
-  flex-wrap: wrap;          /* при видимой пилюле триала ряд может не влезть в 420px */
+  flex-wrap: wrap;          /* исторический перенос при видимой пилюле триала; на 740px (v5.9.66) ряд помещается */
   align-items: center;      /* space-between не нужен — .header-right сдвигается margin-left:auto */
   padding: 10px 12px;
   border-bottom: 1px solid #e0e2e8;
@@ -105,7 +108,7 @@ header {
   background: #fff;
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;
+  max-width: 560px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   overflow: hidden;
   margin: auto;
@@ -912,7 +915,7 @@ button:focus-visible {
   border-radius: 10px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
   width: 100%;
-  max-width: 340px;
+  max-width: 460px;
   padding: 16px;
   animation: ozgModalIn 0.12s ease-out;
 }
@@ -1013,7 +1016,7 @@ button:focus-visible {
   justify-content: center;
 }
 .parent-sku-dialog {
-  width: min(100%, 360px);
+  width: min(100%, 460px);
   height: auto;
   max-height: calc(100vh - 32px);
 }
@@ -2202,19 +2205,22 @@ button:focus-visible {
   min-height: 28px;
 }
 
-/* Поле + инлайновая кнопка справа внутри рамки поля */
+/* Поле + инлайновые кнопки справа.
+   v5.9.66: кнопок стало две (⭐ каталог, 📋 копирование), поэтому абсолютное
+   позиционирование `right:8px` заменено обычным flex-рядом — иначе вторая
+   кнопка легла бы ровно поверх первой. */
 .input-with-action {
-  position: relative;
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 .input-with-action input[type="text"] {
+  flex: 1;
+  min-width: 0;
   margin-bottom: 0;
-  padding-right: 32px;
 }
 .input-with-action .btn-ghost-icon {
-  position: absolute;
-  right: 8px;
+  flex-shrink: 0;
 }
 
 /* ── Единственная пунктирная зона загрузки ─────────────────────────── */
@@ -2394,3 +2400,247 @@ button:focus-visible {
   font-family: inherit;
 }
 .iface-alert-close:hover { opacity: 1; }
+
+/* ── v5.9.66: кластеры списка жалоб (F5) ───────────────────────────────
+   Компоненты собраны на токенах v5.9.55; Tailwind-slate не использовать. */
+.complaint-list-head {
+  justify-content: space-between;
+  cursor: pointer;
+}
+.complaint-list-head .badge-sm { margin-left: 4px; }
+#complaintListSection.collapsed #complaintListBody { display: none; }
+#complaintListSection.collapsed .btn-icon-toggle { transform: rotate(-90deg); }
+
+.complaint-list-search {
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+}
+.complaint-list-search:focus {
+  outline: none;
+  border-color: var(--brand);
+}
+
+.complaint-queue {
+  margin-bottom: 0;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.cluster-card {
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.cluster-card:last-child { margin-bottom: 0; }
+.cluster-card--orphan {
+  border-color: var(--warn-line);
+  background: var(--warn-bg);
+}
+
+.cluster-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--line);
+}
+.cluster-card--orphan .cluster-head {
+  color: var(--warn-text);
+  border-bottom-color: var(--warn-line);
+}
+.cluster-card.collapsed .cluster-head { border-bottom: none; }
+.cluster-card.collapsed .cluster-body { display: none; }
+.cluster-arrow {
+  font-size: 8px;
+  color: var(--text-3);
+  flex-shrink: 0;
+  transition: transform 0.12s;
+}
+.cluster-card.collapsed .cluster-arrow { transform: rotate(-90deg); }
+.cluster-parent {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 11px;
+}
+.cluster-name {
+  font-weight: 400;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+.cluster-count {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-weight: 400;
+  color: var(--text-3);
+}
+.cluster-assign {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  font-size: 10px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--warn-text);
+  font-family: inherit;
+  cursor: pointer;
+}
+.cluster-assign:hover { background: var(--warn-line); color: var(--text); }
+
+/* Плитки артикулов: на 740px в ряд помещается 5-6 колонок вместо одной
+   строки на SKU — 1000 SKU перестают быть километровой лентой. */
+.cluster-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 2px 6px;
+  padding: 4px 8px 6px;
+}
+.cluster-note {
+  grid-column: 1 / -1;
+  padding: 4px 0 0;
+  font-size: 10px;
+  color: var(--text-3);
+}
+/* Внутри плиточной сетки разделители не нужны, а текст ошибки не должен
+   растягивать колонку — иначе одна длинная причина ломает всю раскладку. */
+.cluster-body .queue-item {
+  border-bottom: none;
+  padding: 1px 0;
+  min-width: 0;
+}
+.cluster-body .queue-error {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ── v5.9.66: каталог сохранённых родительских SKU (F2) ─────────────── */
+.saved-parents-table {
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+}
+.saved-parents-table:empty { display: none; }
+.saved-parent-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-bottom: 1px solid var(--line);
+}
+.saved-parent-row:last-child { border-bottom: none; }
+.saved-parent-sku {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.saved-parent-name {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.saved-parent-source {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--text-3);
+}
+.saved-parent-remove {
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0 2px;
+  font-family: inherit;
+}
+.saved-parent-remove:hover { color: var(--danger); }
+
+/* Пикер каталога — общий для поля, модалки родителя и кластера орфанов */
+.saved-parent-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.saved-parent-dialog {
+  width: min(100%, 460px);
+  height: auto;
+  max-height: calc(100vh - 32px);
+}
+.saved-parent-picker-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+}
+.saved-parent-picker-body input[type="search"] {
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-family: inherit;
+}
+.saved-parent-picker-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.saved-parent-picker-list:empty { display: none; }
+.saved-parent-pick {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 8px;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+}
+.saved-parent-pick:last-child { border-bottom: none; }
+.saved-parent-pick:hover { background: var(--brand-tint); }
+.saved-parent-pick .saved-parent-sku { font-size: 11px; }
+
+/* ── v5.9.66 (F4): очередь артикулов с карточек ozon.ru ──────────────── */
+.picked-preview {
+  display: block;
+  margin: 2px 0 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  word-break: break-all;
+}
+#pickedForScanBanner .opt-actions-row { margin-top: 6px; }
