@@ -2572,6 +2572,59 @@ button:focus-visible {
 }
 .cluster-assign:hover { background: var(--warn-line); color: var(--text); }
 
+/* ── v5.9.71: меню кластера и артикула ───────────────────────────────── */
+.cluster-menu-btn {
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 4px;
+  border-radius: var(--r-sm);
+  font-family: inherit;
+}
+.cluster-menu-btn:hover { background: rgba(0, 0, 0, 0.06); color: var(--text); }
+
+/* Артикул стал кнопкой — снимаем «кнопочный» вид, оставляем моноширинный текст */
+.queue-sku {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.queue-sku:hover { text-decoration: underline; }
+
+.row-menu {
+  position: absolute;
+  z-index: 3000;
+  min-width: 210px;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+.row-menu-item {
+  border: none;
+  background: none;
+  text-align: left;
+  padding: 6px 8px;
+  border-radius: var(--r-sm);
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.row-menu-item:hover { background: var(--brand-tint); }
+.row-menu-item--danger { color: var(--danger); }
+.row-menu-item--danger:hover { background: var(--danger-tint); }
+
 /* Плитки артикулов: на 740px в ряд помещается 5-6 колонок вместо одной
    строки на SKU — 1000 SKU перестают быть километровой лентой. */
 .cluster-body {
