@@ -30,6 +30,45 @@
   --s4: 16px;
 }
 
+/* Вкладка цен: компактная таблица без горизонтального сжатия данных. */
+#tabPrices #priceSkuInput { width: 100%; }
+#tabPrices #priceShopUrl { display: block; width: 100%; margin: 0; }
+.complaint-controls.price-controls { margin-bottom: var(--s2); }
+.price-controls .btn-export { flex-shrink: 0; }
+.price-status-card { margin-bottom: var(--s2); }
+.price-progress-meter { margin-top: var(--s2); }
+.price-pages { display: flex; align-items: center; justify-content: flex-end; gap: var(--s2); min-height: 28px; margin-bottom: var(--s2); color: var(--text-3); font-size: 11px; }
+.price-table-wrap { position: relative; max-height: 300px; overflow: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.price-table { width: 100%; border-collapse: collapse; min-width: 1400px; font-size: 12px; }
+.price-table th, .price-table td { padding: 7px 6px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.price-table th { position: sticky; top: 0; z-index: 2; color: var(--text-2); background: var(--bg); white-space: nowrap; }
+.price-table th:first-child, .price-table td:first-child { position: sticky; left: 0; min-width: 92px; }
+.price-table th:first-child { z-index: 3; background: var(--bg); }
+.price-table td:first-child { z-index: 1; background: var(--surface); font-weight: 600; }
+.price-table td.price-error { color: var(--danger); }
+.price-table-link { color: var(--brand); text-decoration: underline; white-space: nowrap; }
+.price-table-link:hover { color: var(--brand-hover); }
+.price-table-link-invalid { color: var(--danger); cursor: help; }
+
+#complaintGroupFields { padding: var(--s2) var(--s3); border-left: 2px solid var(--line); margin-left: var(--s3); }
+#complaintGroupFields .input-number { width: 100%; max-width: 120px; }
+.ozg-modal-overlay.group-preview-overlay { z-index: 2100; padding: var(--s3); }
+.ozg-modal-box.group-preview-box { max-width: 700px; max-height: calc(100vh - var(--s4) - var(--s2)); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+.group-preview-header { flex-shrink: 0; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); }
+.group-preview-header .ozg-modal-title { margin-bottom: var(--s1); }
+.group-preview-body { min-height: 0; flex: 1; display: flex; flex-direction: column; gap: var(--s2); padding: var(--s3) var(--s4); overflow: hidden; }
+.group-preview-list { min-height: 0; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg); }
+.group-preview-card { padding: var(--s3); border-bottom: 1px solid var(--line); background: var(--surface); overflow-wrap: anywhere; }
+.group-preview-card:last-child { border-bottom: 0; }
+.group-preview-card--skipped { background: var(--bg); }
+.group-preview-card-title { margin: 0 0 var(--s2); color: var(--text); font-size: 12px; }
+.group-preview-details { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: var(--s1) var(--s2); margin: 0; font-size: 11px; line-height: 1.4; }
+.group-preview-details dt { color: var(--text-3); }
+.group-preview-details dd { min-width: 0; margin: 0; color: var(--text-2); }
+.group-preview-value-list { display: flex; flex-direction: column; gap: 2px; }
+.group-preview-errors { flex-shrink: 0; margin: 0; color: var(--warn-text); white-space: pre-wrap; }
+.group-preview-buttons { flex-shrink: 0; padding: var(--s3) var(--s4); border-top: 1px solid var(--line); }
+
 * {
   margin: 0;
   padding: 0;
@@ -341,7 +380,7 @@ label {
   margin-bottom: 3px;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="url"] {
   width: 100%;
   padding: 8px 10px;
   margin-bottom: 8px;
@@ -359,6 +398,7 @@ textarea, input[type="text"] {
    .input-license с амбер-кольцом, .complaint-parent-input). */
 textarea:focus,
 input[type="text"]:focus,
+input[type="url"]:focus,
 input[type="number"]:focus,
 select:focus {
   outline: none;

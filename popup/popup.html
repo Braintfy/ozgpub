@@ -96,6 +96,12 @@
         </div>
 
         <div class="help-section">
+          <div class="help-section-title">💳 Цены</div>
+          <p>Бесплатная вкладка собирает цены ваших товаров из текущего покупательского сеанса Ozon. Вставьте SKU, загрузите файл «Цены товаров» или возьмите товары из сохранённого каталога, затем определите и проверьте ссылку своего магазина.</p>
+          <div class="help-tip">Цена зависит от региона и доступных банковских условий. Сбор можно поставить на паузу, продолжить после восстановления Ozon или остановить; CSV сохраняет и уже собранные строки, и ошибки.</div>
+        </div>
+
+        <div class="help-section">
           <div class="help-section-title">💾 Экспорт результатов</div>
           <p>После сбора доступны кнопки над списком результатов:</p>
           <ul class="help-list">
@@ -163,7 +169,13 @@
           <div class="help-tip">✏️ <b>Список редактируется прямо в группах.</b> Кнопка <b>«➕ Добавить артикулы»</b> в шапке открывает поле вставки (по одному на строку) и выбор вашего товара — артикулы сразу уйдут в нужную группу. Меню группы <b>«⋯»</b>: сменить родительский SKU у всей группы, добавить в неё артикулы, скопировать её SKU, удалить группу из списка. Клик по самому артикулу — копировать, открыть на OZON, сменить родителя, убрать; ✕ справа убирает быстро. Во время работы бота редактирование заблокировано.</div>
           <div class="help-tip">⏳ <b>Ваш товар можно указать позже.</b> При переносе из Сканирования есть кнопка «Позже», а в зоне «➕ Добавить артикулы» поле «Ваш товар» можно оставить пустым — артикулы попадут в группу «⚠ Без родительского». Назначить товар потом: кнопка «Назначить…» у этой группы, меню группы «⋯» → «Сменить родительский SKU» или меню отдельного артикула. Если выбран путь «Плагиат моих карточек» или «Мой контент», перед запуском расширение предупредит: Ozon на этих путях обязательно спрашивает ваш товар. Незавершённый перенос переживает закрытие расширения — вернётесь и продолжите с того же места.</div>
           <div class="help-tip">🎛 <b>Пульт на странице поддержки.</b> Пока бот работает, в углу seller.ozon.ru висит окно OZGuard: кнопки <b>⏸ / ▶ / ⏹</b> (остановка спросит подтверждение), полоса прогресса, счётчики «обработано · ошибки · осталось», текущий артикул и что делается прямо сейчас. Отдельно показываются пауза, ожидание лимита Ozon с таймером и отметка «нужно внимание». Окно сворачивается в маленький бейдж с процентом, перетаскивается (положение запоминается), а 📋 копирует лог.</div>
-          <div class="help-tip">⏱ <b>Большие пакеты</b> — бот не останавливается на лимите обращений, но сохраняет антибот-паузы между действиями. Остановить или поставить на паузу можно вручную.</div>
+          <div class="help-tip">⏱ <b>Большие пакеты</b> — бот не останавливается на лимите обращений, но сохраняет антибот-паузы между действиями. Остановить или поставить на паузу можно вручную. Во сне компьютера расширение не работает; после пробуждения сохранённая очередь возобновится.</div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-section-title">🧪 Несколько товаров в обращении · BETA</div>
+          <p>Для путей «Мой контент» и «Мой бренд» можно объединить товары одного продавца. Перед отправкой расширение проверит продавцов и покажет состав каждого обращения, ваши товары, доказательства и причины разделения.</p>
+          <div class="help-tip">Сначала проверьте 2–3 SKU. Если включено продолжение остатка поштучно, оно сработает только после подтверждённого автоматического решения по первому SKU; иначе остаток получит статус «Не подано».</div>
         </div>
 
         <div class="help-section">
@@ -171,7 +183,7 @@
           <ul class="help-list">
             <li><b>«Товар не найден или не в наличии»</b> — OZON вернул категорию вместо карточки (товар снят с продажи). Это нормально — расширение пропускает такие SKU.</li>
             <li><b>«OZON API не ответил» по многим SKU?</b> — обновите страницу ozon.ru (F5), убедитесь, что вы вошли в аккаунт, и повторите сканирование. При антибот-ограничении подождите 10–15 минут.</li>
-            <li><b>Бот завис?</b> — нажмите ⏹ Стоп и запустите снова.</li>
+            <li><b>Прогресс долго не меняется?</b> — нажмите ⏸ Пауза, дождитесь восстановления страницы Ozon и нажмите ▶ Продолжить. При статусе «Требует проверки» сначала откройте чат и проверьте, была ли команда отправлена; не запускайте тот же пакет повторно до проверки.</li>
             <li><b>Не запускаются жалобы?</b> — убедитесь что вкладка seller.ozon.ru открыта в браузере.</li>
             <li><b>Ложный failed у файла?</b> — если бот показал failed, но файл в чате реально есть и Ozon ответил «Скрыли товар» — это было в старых версиях. С v5.9.11 верификация смотрит и на ответ бота, и на факт прикрепления.</li>
             <li><b>Нужна помощь?</b> — <a href="https://codefic.ru" target="_blank" class="link-ozon">codefic.ru</a></li>
@@ -184,6 +196,7 @@
 
   <nav class="tabs">
     <button class="tab active" data-tab="scan">Сканирование</button>
+    <button class="tab" data-tab="prices">Цены</button>
     <button class="tab" data-tab="history">История</button>
     <button class="tab" data-tab="settings">Настройки</button>
     <button class="tab" data-tab="complaints">Жалобы</button>
@@ -299,6 +312,61 @@
         <button id="btnCopyLog" class="btn-ghost-icon log-copy" title="Скопировать весь лог">&#128203;</button>
       </div>
       <div id="logContainer" class="log-body"></div>
+    </div>
+  </main>
+
+  <!-- Бесплатный сбор цен своих товаров; сессия хранится отдельно от сканера конкурентов. -->
+  <main id="tabPrices" class="tab-content">
+    <section class="opt-group">
+      <div class="opt-group-title">Цены ваших товаров</div>
+      <div class="opt-group-body">
+        <p class="opt-row-note">Введите SKU по одному на строку, загрузите файл «Цены товаров» или возьмите товары из сохранённого каталога.</p>
+        <p class="opt-row-note">Цены зависят от текущего покупательского сеанса Ozon, региона и условий банка. Если регион не подтверждён, поле остаётся пустым; точный адрес не сохраняется.</p>
+        <label class="field-label" for="priceSkuInput">SKU товаров</label>
+        <textarea id="priceSkuInput" rows="5" placeholder="1234567890&#10;9876543210"></textarea>
+        <div class="opt-actions-row">
+          <button id="btnPriceImport" class="btn btn-small" type="button">📂 Загрузить XLSX</button>
+          <button id="btnPriceCatalog" class="btn btn-small" type="button">🧾 Из каталога</button>
+          <input id="priceFileInput" type="file" accept=".xlsx" class="is-hidden-input">
+        </div>
+        <div id="priceImportInfo" class="opt-row-note" role="status"></div>
+      </div>
+    </section>
+    <section class="opt-group">
+      <div class="opt-group-title">Ваш магазин</div>
+      <div class="opt-group-body">
+        <div class="opt-actions-row">
+          <button id="btnPriceDetectShop" class="btn btn-small" type="button">Найти по карточке</button>
+        </div>
+        <div id="priceShopSummary" class="opt-row-note" role="status">Магазин ещё не определён</div>
+        <div class="field">
+          <label class="field-label" for="priceShopUrl">Ссылка на магазин Ozon — проверьте перед запуском</label>
+          <input id="priceShopUrl" type="url" placeholder="https://www.ozon.ru/seller/ваш-магазин-123456/">
+        </div>
+      </div>
+    </section>
+    <div class="complaint-controls price-controls">
+      <button id="btnPriceStart" class="btn btn-primary btn-start" type="button">Собрать цены</button>
+      <button id="btnPricePause" class="btn btn-icon btn-secondary hidden" type="button" disabled title="Пауза" aria-label="Поставить сбор цен на паузу">⏸</button>
+      <button id="btnPriceResume" class="btn btn-icon btn-secondary hidden" type="button" disabled title="Продолжить" aria-label="Продолжить сбор цен">▶</button>
+      <button id="btnPriceStop" class="btn btn-icon btn-danger" type="button" disabled title="Стоп" aria-label="Остановить сбор цен">⏹</button>
+      <button id="btnPriceExport" class="btn btn-export" type="button" disabled>📥 CSV</button>
+    </div>
+    <div id="priceStatusCard" class="complaint-status price-status-card">
+      <div class="complaint-status-header">
+        <span id="priceStatusIcon" class="status-icon">○</span>
+        <span id="priceProgress" role="status">Нет активного сбора</span>
+      </div>
+      <div id="priceProgressWrap" class="price-progress-meter hidden" aria-hidden="true">
+        <div class="progress-bar"><div id="priceProgressFill" class="progress-fill"></div></div>
+      </div>
+    </div>
+    <div class="price-pages"><button id="btnPricePrev" class="btn btn-small" type="button" disabled aria-label="Предыдущая страница">←</button><span id="pricePageInfo"></span><button id="btnPriceNext" class="btn btn-small" type="button" disabled aria-label="Следующая страница">→</button></div>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead><tr><th>SKU</th><th>Артикул</th><th>Название</th><th>Обычная, ₽</th><th>С банками, ₽</th><th>Ozon Банк, ₽</th><th>Условие</th><th>Старая, ₽</th><th>За ед., ₽</th><th>Наличие</th><th>Ссылка товара</th><th>Магазин</th><th>Регион</th><th>Проверено</th><th>Ошибка</th></tr></thead>
+        <tbody id="priceResultsBody"></tbody>
+      </table>
     </div>
   </main>
 
@@ -656,6 +724,31 @@
       </div>
     </section>
 
+    <section class="opt-group" id="complaintGroupsSection">
+      <div class="opt-group-title">Несколько товаров в одном обращении · BETA</div>
+      <div class="opt-group-body">
+        <label class="opt-row"><input id="complaintGroupsEnabled" type="checkbox"><span class="opt-row-title">Сгруппировать жалобы</span></label>
+        <span class="opt-row-note opt-row-note--indent">По умолчанию выключено. Работает для путей «Мой контент» и «Мой бренд». Перед запуском покажем состав каждого обращения и доказательства. Сначала проверьте на 2–3 SKU.</span>
+        <div id="complaintGroupFields" class="opt-col hidden">
+          <div class="field">
+            <label class="field-label" for="complaintGroupMode">Объединять</label>
+            <select id="complaintGroupMode" class="input-select">
+              <option value="parent">Только одного моего товара</option>
+              <option value="parents">Несколько моих товаров</option>
+              <option value="seller">По продавцу</option>
+            </select>
+          </div>
+          <div id="complaintParentLimitWrap" class="field hidden">
+            <label class="field-label" for="complaintGroupParentLimit">Моих товаров в обращении, максимум</label>
+            <input id="complaintGroupParentLimit" class="input-number" type="number" min="1" max="25" value="3">
+          </div>
+          <label class="opt-row"><input id="complaintGroupAutoFallback" type="checkbox" checked><span class="opt-row-title">При автоматическом решении по первому SKU продолжить остаток поштучно</span></label>
+          <span class="opt-row-note opt-row-note--indent">Если выключено, остальные SKU останутся «Не подано». При неизвестном исходе отправки пакет ждёт ручной проверки.</span>
+          <span class="opt-row-note">Для «Моего контента» бренд можно указать в поле выше: товары разных брендов разделяются. Если бренд неизвестен, товары разных ваших SKU не объединяются автоматически.</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Подсказка при выборе пути «Мой контент» / «Мой бренд» -->
     <div id="betaWarning" class="hint-banner hint-info hint-compact hidden">
       <div class="hint-banner-body">
@@ -861,6 +954,8 @@
   </div>
 
   <script src="../shared/core.js"></script>
+  <script src="../shared/complaint-groups.js"></script>
+  <script src="../shared/prices.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
