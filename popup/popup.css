@@ -80,6 +80,7 @@ body {
      кластеры и таблица каталога перестают ломаться в две строки, а запас 60px
      оставлен под полосу прокрутки и рамку окна на Win11. */
   width: 740px;
+  max-width: 100%;
   min-height: 300px;
   max-height: 600px;
   overflow-y: auto;
@@ -1818,7 +1819,7 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 
-.input-select {
+.input-select, #priceHistorySelect, .price-rule-grid select {
   flex: 1;
   padding: 5px 8px;
   background: #fff;
@@ -2829,3 +2830,25 @@ button:focus-visible {
   word-break: break-all;
 }
 #pickedForScanBanner .opt-actions-row { margin-top: 6px; }
+
+/* Prices use the same cards, controls and spacing as the rest of the popup. */
+.price-history { margin-top: var(--s3); }
+#priceHistorySelect { flex: 1; min-width: 160px; max-width: 100%; }
+.price-rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.price-rule-grid .field { display: flex; flex-direction: column; gap: var(--s1); margin: 0; min-width: 0; color: var(--text-2); }
+.price-rule-grid input, .price-rule-grid select, #repriceReferences { width: 100%; box-sizing: border-box; }
+.price-rule-grid input {
+  padding: 8px 10px; background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm); color: var(--text); font: inherit;
+}
+.price-rule-grid select { padding: 8px 10px; flex: none; font-size: 13px; }
+.price-history .opt-actions-row { flex-wrap: wrap; }
+.price-repricer { margin-top: var(--s3); }
+.price-repricer > summary { cursor: pointer; margin: 0; }
+.price-repricer[open] > summary { margin-bottom: var(--s3); }
+.price-repricer .opt-actions-row { margin-top: var(--s3); }
+.reprice-table { min-width: 640px; }
+.ozg-modal-box.complaint-reset-box { max-width: 490px; }
+.complaint-reset-actions { display: grid; gap: var(--s2); margin-top: var(--s4); }
+.complaint-reset-box .group-preview-body > p + p { margin-top: var(--s3); }
+#complaintAuditAccess { margin-bottom: var(--s3); }

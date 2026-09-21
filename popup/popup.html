@@ -361,6 +361,17 @@
         <div class="progress-bar"><div id="priceProgressFill" class="progress-fill"></div></div>
       </div>
     </div>
+    <section class="opt-group price-history">
+      <div class="opt-group-title">История цен</div>
+      <div class="opt-group-body">
+        <div class="opt-actions-row">
+          <select id="priceHistorySelect" aria-label="Сохранённый сбор цен"><option value="">Текущий сбор</option></select>
+          <button id="btnPriceHistoryRefresh" class="btn btn-small" type="button">Обновить</button>
+          <button id="btnPriceHistoryRerun" class="btn btn-small" type="button" disabled>В новый список</button>
+        </div>
+        <p id="priceHistoryInfo" class="opt-row-note" role="status">Сохраняются завершённые и частичные сборы. CSV выгружает выбранный сбор целиком.</p>
+      </div>
+    </section>
     <div class="price-pages"><button id="btnPricePrev" class="btn btn-small" type="button" disabled aria-label="Предыдущая страница">←</button><span id="pricePageInfo"></span><button id="btnPriceNext" class="btn btn-small" type="button" disabled aria-label="Следующая страница">→</button></div>
     <div class="price-table-wrap">
       <table class="price-table">
@@ -368,6 +379,32 @@
         <tbody id="priceResultsBody"></tbody>
       </table>
     </div>
+    <details class="opt-group price-repricer" id="priceRepricer">
+      <summary class="opt-group-title">Рекомендации цен · BETA</summary>
+      <div class="opt-group-body">
+        <p class="opt-row-note">Расчёт по выбранному сбору и обычной цене покупателя. Перед переносом в кабинет проверьте акции и скидки Ozon: цена продавца может отличаться. CSV — отчёт рекомендаций, не файл загрузки в Ozon.</p>
+        <div class="price-rule-grid" id="priceRuleFields">
+          <label class="field">Правило<select id="repriceMode"><option value="adjust_percent">Изменить обычную цену на %</option><option value="below_reference">Ниже ориентира конкурента на ₽</option></select></label>
+          <label class="field"><span id="repriceValueLabel">Изменение, % (минус — снижение)</span><input id="repriceValue" type="number" value="-5" step="0.01"></label>
+          <label class="field">Минимальная цена, ₽<input id="repriceFloor" type="number" min="0.01" step="0.01" placeholder="Обязательно"></label>
+          <label class="field">Максимальная цена, ₽<input id="repriceCeiling" type="number" min="0.01" step="0.01" placeholder="Не ограничена"></label>
+          <label class="field">Предел изменения, %<input id="repriceMaxChange" type="number" value="20" min="0.01" max="100" step="0.01"></label>
+          <label class="field">Данные не старше, часов<input id="repriceAge" type="number" value="24" min="1" max="168"></label>
+          <label class="field">Округлить вниз, ₽<select id="repriceStep"><option>1</option><option>5</option><option>10</option><option>50</option><option>100</option></select></label>
+        </div>
+        <div id="repriceReferenceSection" class="hidden">
+          <label class="field-label" for="repriceReferences">Ваш SKU;обычная цена конкурента — по строке на товар</label>
+          <textarea id="repriceReferences" rows="3" placeholder="3417910233;780"></textarea>
+          <p class="opt-row-note">Введите проверенные цены в том же регионе и на тех же условиях. Старый скан конкурентов может содержать банковскую цену, поэтому автоматически здесь не используется.</p>
+        </div>
+        <div class="opt-actions-row">
+          <button id="btnRepriceCalculate" class="btn btn-small" type="button">Рассчитать</button>
+          <button id="btnRepriceExport" class="btn btn-small" type="button" disabled>📥 Рекомендации CSV</button>
+        </div>
+        <p id="repriceInfo" class="opt-row-note" role="status">Рекомендации не изменяют цены в кабинете.</p>
+        <div class="price-table-wrap"><table class="price-table reprice-table"><thead><tr><th>SKU</th><th>Сейчас, ₽</th><th>Рекомендация, ₽</th><th>Изменение, ₽</th><th>Результат</th></tr></thead><tbody id="repriceResults"></tbody></table></div>
+      </div>
+    </details>
   </main>
 
   <!-- Таб: История -->
@@ -781,6 +818,9 @@
       </div>
     </section>
 
+    <div id="complaintAuditAccess" class="opt-actions-row">
+      <button id="btnComplaintAudits" class="btn btn-small" type="button">Сбросить ошибки / начать заново</button>
+    </div>
     <!-- Управление -->
     <div class="complaint-controls">
       <button id="btnComplaintStart" class="btn btn-primary btn-start">📨 Начать</button>
@@ -956,6 +996,7 @@
   <script src="../shared/core.js"></script>
   <script src="../shared/complaint-groups.js"></script>
   <script src="../shared/prices.js"></script>
+  <script src="../shared/repricing.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
