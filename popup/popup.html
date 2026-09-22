@@ -213,7 +213,7 @@
           <span id="pickedForScanPreview" class="picked-preview"></span>
           <span class="opt-actions-row">
             <button id="btnPickedForScanApply" class="btn btn-small btn-primary">Добавить в поле</button>
-            <button id="btnPickedForScanClear" class="btn btn-small btn-danger-sm">Очистить</button>
+            <button id="btnPickedForScanClear" class="btn btn-danger btn-clear-action">Очистить</button>
           </span>
         </span>
       </div>
@@ -268,7 +268,7 @@
             <h2>Результаты</h2>
             <span id="totalSellers" class="badge">0</span>
           </div>
-          <button id="btnClearSession" class="btn-icon-clear" title="Очистить результаты">🗑</button>
+          <button id="btnClearSession" class="btn btn-danger btn-clear-action" type="button">Очистить результаты</button>
         </div>
         <div class="export-actions">
           <button id="btnCopy" class="btn btn-export">📋 Копировать</button>
@@ -411,7 +411,7 @@
   <main id="tabHistory" class="tab-content">
     <div class="section-header">
       <h2>Последние сессии</h2>
-      <button id="btnClearHistory" class="btn btn-small btn-danger-sm">Очистить</button>
+      <button id="btnClearHistory" class="btn btn-danger btn-clear-action">Очистить историю</button>
     </div>
     <div id="historyContainer">
       <div class="empty-state">Нет сохранённых сессий</div>
@@ -571,7 +571,7 @@
           <button id="btnSaveSavedParents" class="btn btn-small">Сохранить</button>
           <button id="btnLoadPricesFile" class="btn btn-small" title="Стандартная выгрузка OZON: Товары → Цены товаров">📂 Файл «Цены товаров»</button>
           <button id="btnExportSavedParents" class="btn btn-small" title="Скачать список в .txt">📥 Экспорт</button>
-          <button id="btnClearSavedParents" class="btn btn-small btn-danger-sm">Очистить</button>
+          <button id="btnClearSavedParents" class="btn btn-danger btn-clear-action">Очистить</button>
           <span id="savedParentsSavedHint" class="saved-hint hidden">Сохранено</span>
         </div>
         <input type="file" id="savedParentsFileInput" accept=".xlsx" class="is-hidden-input">
@@ -691,7 +691,7 @@
         <span class="complaint-list-actions">
           <button id="btnComplaintAddToggle" class="btn btn-small" type="button" title="Вставить артикулы построчно">➕ Добавить артикулы</button>
           <button id="btnImportCsv" class="btn btn-small" type="button" title="CSV/Excel из Истории сканирования">📥 Импорт из Excel</button>
-          <button id="btnComplaintListClear" class="btn btn-small btn-danger-sm" type="button" title="Убрать все артикулы из списка">Очистить список</button>
+          <button id="btnComplaintListClear" class="btn btn-danger btn-clear-action" type="button" title="Убрать все артикулы из списка">Очистить список</button>
           <button id="btnComplaintListToggle" class="btn-icon-toggle" type="button" title="Свернуть/развернуть">▼</button>
         </span>
       </div>
@@ -819,14 +819,15 @@
     </section>
 
     <div id="complaintAuditAccess" class="opt-actions-row">
-      <button id="btnComplaintAudits" class="btn btn-small" type="button">Сбросить ошибки / начать заново</button>
+      <button id="btnComplaintAudits" class="btn btn-secondary btn-clear-action" type="button">Сбросить ошибки / начать заново</button>
+      <button id="btnComplaintClear" class="btn btn-danger btn-clear-action" type="button" aria-describedby="complaintClearHint">Очистить сессию</button>
     </div>
+    <p id="complaintClearHint" class="opt-row-note complaint-clear-hint">Очистка сессии доступна после остановки бота.</p>
     <!-- Управление -->
     <div class="complaint-controls">
       <button id="btnComplaintStart" class="btn btn-primary btn-start">📨 Начать</button>
       <button id="btnComplaintPause" class="btn btn-icon btn-secondary" disabled title="Пауза">⏸</button>
       <button id="btnComplaintStop" class="btn btn-icon btn-danger" disabled title="Стоп">⏹</button>
-      <button id="btnComplaintClear" class="btn-icon-clear" title="Очистить сессию">🗑</button>
     </div>
 
     <!-- Статус + прогресс -->

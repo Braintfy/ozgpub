@@ -635,19 +635,12 @@ button:focus-visible {
   font-weight: 600;
   margin: 0;
 }
-.btn-icon-clear {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  opacity: 0.4;
-  transition: opacity 0.15s, background 0.15s;
-}
-.btn-icon-clear:hover {
-  opacity: 1;
-  background: #fde8e8;
+.btn-clear-action {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
 }
 .btn-export {
   padding: 4px 10px;
@@ -1819,6 +1812,13 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 
+#complaintAuditAccess {
+  flex-wrap: wrap;
+}
+.opt-row-note.complaint-clear-hint {
+  margin: 6px 0 12px;
+}
+
 .input-select, #priceHistorySelect, .price-rule-grid select {
   flex: 1;
   padding: 5px 8px;
@@ -2479,6 +2479,7 @@ button:focus-visible {
 /* Кнопки шапки списка: сюда переехало всё, что раньше жило вокруг textarea. */
 .complaint-list-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
   margin-left: auto;
