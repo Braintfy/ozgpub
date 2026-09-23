@@ -1,0 +1,13 @@
+# The manifest key is the existing public SPKI used for a stable extension ID.
+# Match only these exact public bytes in manifest.json; other keys remain checked.
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+[[rules.allowlists]]
+description = "OZGuard public extension identity (not a private or API key)"
+condition = "AND"
+paths = ['''(^|[\\/])manifest\.json$''']
+regexTarget = "secret"
+regexes = ['''^MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsc5mxrVGE\+x\+40YM1WpGa/D9biwsnrsrYwAvI3ydplnBYf4gDFVxESeKUvlJfxAa6Zo\+ex57h1QPahqbxbYx5x2sYK0vNh8V2aaeyGo2z1MbmTu06hCVcqCzcbD2KjvLCxQ0OHcOzBsARVIw07rLtWcS/ES\+0wWBpFPvwMNVpvx4dlqCiHsteHgUWYcPimiUy123y7IKlUbsax\+4kxMRtOOPQ88ZkjbUsqhHykknOLD1VOkBB9CGqZfC5K9txKyHWvw3qNwtXdsaDuwAvjm5ftZvupxihGgVTmVywv6KbZYCN7zZmiIvNyeotWZm873Q22p/RmVL9pq1bchK8aIPpwIDAQAB$''']

@@ -12,7 +12,7 @@
     <div class="header-right">
       <button id="btnTrialHeader" class="trial-pill hidden">⚡ 7 дней PRO</button>
       <a id="btnBuyPro" class="buy-pro-btn" href="https://codefic.ru/#pricing" target="_blank">Купить PRO</a>
-      <button id="btnHelp" class="btn-help" title="Инструкция">?</button>
+      <button id="btnHelp" class="btn-help" type="button" aria-haspopup="dialog" aria-controls="helpModal">Помощь</button>
       <span id="versionBadge" class="version" title="Текущая версия">v…</span>
     </div>
   </header>
@@ -62,138 +62,23 @@
     <button class="hint-close" data-hint="trial_cta" title="Скрыть">✕</button>
   </div>
 
-  <!-- Модальное окно инструкции -->
-  <div id="helpModal" class="help-modal hidden">
+  <!-- Справочник и экскурсии: текст наполняется из help/catalog.js без HTML-инъекций. -->
+  <div id="helpInvitation" class="help-invitation hidden" role="status">
+    <span>Познакомиться с OZGuard? Выберите короткую экскурсию по нужной задаче.</span>
+    <button type="button" class="btn btn-small btn-primary" data-help-invite-open>Выбрать</button>
+    <button type="button" class="btn-close" data-help-invite-close aria-label="Закрыть приглашение">×</button>
+  </div>
+  <div id="helpModal" class="help-modal hidden" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
     <div class="help-modal-content">
       <div class="help-modal-header">
-        <span class="help-modal-title">📖 Инструкция OZGuard</span>
-        <button id="helpModalClose" class="btn-close">&times;</button>
+        <span id="helpModalTitle" class="help-modal-title">Помощь OZGuard</span>
+        <button id="helpModalClose" type="button" class="btn-close" aria-label="Закрыть справку">×</button>
       </div>
-      <div class="help-modal-body">
-
-        <div class="help-section">
-          <div class="help-section-title">Что такое OZGuard?</div>
-          <p>OZGuard находит всех конкурентов, которые продают те же товары что и вы на <a href="https://www.ozon.ru" target="_blank" class="link-ozon">OZON</a>. Вы вводите SKU своих товаров — расширение по каждому запрашивает данные карточки, собирает список всех продавцов и показывает их цены. После этого можно одним кликом отправить нарушителей на проверку через жалобы.</p>
-          <p style="margin-top:6px">Сайт: <a href="https://codefic.ru" target="_blank" class="link-ozon">codefic.ru</a></p>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">🔍 Сканирование</div>
-          <div class="help-step"><span class="help-num">1</span><div><b>Введите SKU</b> своих товаров в поле (по одному на строку). SKU — это числовой артикул товара на OZON, его видно в адресной строке карточки товара или в личном кабинете продавца.</div></div>
-          <div class="help-step"><span class="help-num">2</span><div>При необходимости включите <b>«Собирать только продавцов из Китая (CN)»</b>, затем нажмите <b>«Найти конкурентов»</b>. В строгом CN-режиме продавцы без подтверждённой метки страны не попадут в результаты. Сбор идёт прямыми API-запросами в фоне.</div></div>
-          <div class="help-step"><span class="help-num">3</span><div>В <b>Результатах</b> вы увидите по каждому товару: название, количество конкурентов, их SKU и цены. Кнопка <b>⎘</b> рядом с вашим SKU копирует его. Ссылка <b>«открыть на OZON»</b> ведёт на карточку. Кнопка <b>⎘</b> рядом с «N конк.» копирует сразу все SKU конкурентов по этому товару.</div></div>
-          <div class="help-step"><span class="help-num">4</span><div>Кнопка <b>📎 К доказательствам</b> рядом с каждым вашим SKU переносит его в Настройки → блок «Доказательства для отдельных SKU». Если к SKU уже привязаны файлы — кнопка меняется на <b>✓ Доказательства</b> зелёным. Так удобно за один проход по результатам собрать все доказательства.</div></div>
-          <div class="help-step"><span class="help-num">5</span><div><b>Кнопки на карточках Ozon.</b> Сверху каждой карточки в каталоге и поиске <a href="https://www.ozon.ru" target="_blank" class="link-ozon">www.ozon.ru</a> видна полоска с артикулом — клик по номеру копирует его. Наведите курсор на карточку, и полоска развернётся в кнопки <b>«➕ в скан»</b> и <b>«⚑ в жалобы»</b>. В углу страницы есть кнопка <b>«🛡 Собрать страницу»</b> — она забирает артикулы всех карточек выдачи разом, с выбором вашего товара. Так забирают нарушителей, которых не находит «Есть дешевле». Отмеченные артикулы ждут в расширении, даже если оно было закрыто: во вкладке Сканирование появится «С карточек Ozon», в Жалобах они добавятся в список сами. Расширение только читает ссылку карточки и ничего не нажимает на странице Ozon. Выключить — Настройки → «Кнопки на карточках Ozon».</div></div>
-          <div class="help-tip">⏸ Пауза и ⏹ Стоп работают прямо во время сбора. Скан продолжается в фоне, даже если закрыть popup — откройте его снова, прогресс восстановится.</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">📦 Пакетный импорт XLSX</div>
-          <div class="help-step"><span class="help-num">1</span><div>В <a href="https://seller.ozon.ru" target="_blank" class="link-ozon">личном кабинете OZON</a> перейдите: <b>Товары → Цены товаров → Скачать шаблон</b>.</div></div>
-          <div class="help-step"><span class="help-num">2</span><div>Перетащите скачанный <b>.xlsx</b> файл в зону «Загрузите XLSX шаблон» или нажмите на неё.</div></div>
-          <div class="help-step"><span class="help-num">3</span><div>Выберите нужные статусы товаров — «Продается», «Готов к продаже», «Не продается» — и нажмите <b>«Применить»</b>. SKU попадут в поле ввода.</div></div>
-          <div class="help-tip">По умолчанию отмечен только «Продается» — чтобы не тратить время на снятые товары. Кнопка <b>🕘 Последние</b> быстро возвращает 3 последних применённых XLSX-списка.</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">💳 Цены</div>
-          <p>Бесплатная вкладка собирает цены ваших товаров из текущего покупательского сеанса Ozon. Вставьте SKU, загрузите файл «Цены товаров» или возьмите товары из сохранённого каталога, затем определите и проверьте ссылку своего магазина.</p>
-          <div class="help-tip">Цена зависит от региона и доступных банковских условий. Сбор можно поставить на паузу, продолжить после восстановления Ozon или остановить; CSV сохраняет и уже собранные строки, и ошибки.</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">💾 Экспорт результатов</div>
-          <p>После сбора доступны кнопки над списком результатов:</p>
-          <ul class="help-list">
-            <li><b>📋 Скопировать</b> — полный текст со всеми продавцами и ценами</li>
-            <li><b>📋 Только SKU</b> — только уникальные SKU конкурентов, удобно для последующей обработки</li>
-            <li><b>📥 Excel</b> — скачивает CSV-файл, который открывается в Excel: Мой SKU, Название, SKU конкурента, Продавец, Цена, Ссылка</li>
-            <li><b>📨 В жалобы</b> — мгновенно передаёт все SKU конкурентов в таб Жалобы</li>
-            <li><b>🧾 Мои SKU</b> — копирует ваши артикулы с названиями списком «SKU;название» и пополняет каталог «Мои родительские SKU» в Настройках</li>
-            <li><b>🗑</b> — очищает текущую сессию</li>
-          </ul>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">📜 История</div>
-          <p>Хранит последние 10 сессий сканирования. На каждой карточке:</p>
-          <ul class="help-list">
-            <li><b>📥 Excel</b> — скачать результаты этой сессии</li>
-            <li><b>👁 Детали</b> — открыть таблицу с конкурентами и ценами</li>
-            <li><b>📨 Жалобы</b> — сразу отправить SKU конкурентов из этой сессии в таб Жалобы. При этом автоматически сохраняется связь «ваш SKU → конкуренты» — бот будет знать из какого вашего SKU найден каждый нарушитель, чтобы прикрепить правильные per-SKU доказательства.</li>
-            <li><b>✕</b> — удалить запись</li>
-          </ul>
-          <div class="help-tip">В деталях сессии можно переключиться на «📝 Логи» и увидеть весь процесс сбора.</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">⚙️ Настройки</div>
-          <ul class="help-list">
-            <li><b>Лицензия PRO</b> — нужна только для автоматической подачи жалоб. Весь функционал сбора SKU и пакетного импорта XLSX бесплатен. Купить PRO: <a href="https://codefic.ru/#pricing" target="_blank" class="link-ozon">codefic.ru/#pricing</a></li>
-            <li><b>Исключения при сборе</b> — названия своих магазинов, которые не попадут в результаты. По одному на строку, частичное совпадение.</li>
-            <li><b>Задержка</b> — пауза между запросами к OZON (мс). Рекомендация: 2000–3000 при 5–20 SKU, 4000–5000 при 50+ SKU.</li>
-            <li><b>Подсказки интерфейса</b> — кнопки «Скрыть все подсказки» / «Показать все подсказки» управляют баннерами во вкладке «Жалобы» (VPN-предупреждение, инструкция).</li>
-            <li><b>Мои родительские SKU</b> — каталог ваших товаров (артикул + название). Пополняется сам: при импорте XLSX, переносе из Сканирования и запуске жалоб. Можно вписать руками по строке <b>SKU;название</b> или загрузить файл «Цены товаров» кнопкой. Дальше ваш товар подставляется одним кликом по ⭐ — в зоне «➕ Добавить артикулы», в меню группы и на карточках Ozon.</li>
-            <li><b>Мультидоказательства</b> — общий набор файлов для SKU без персональных доказательств. В режиме «Отправлять несколько» весь подходящий набор прикрепляется одним сообщением.</li>
-            <li><b>Доказательства по SKU</b> — добавьте свой SKU и файлы (до 45 MB каждый: видео, сертификаты, PDF). Персональный набор имеет приоритет над общим и в мульти-режиме также отправляется одним сообщением.</li>
-          </ul>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">📨 Жалобы <span class="help-badge-pro">PRO</span></div>
-          <div class="help-step"><span class="help-num">1</span><div>Наполните <b>«Список жалоб»</b>: кнопка <b>«➕ Добавить артикулы»</b> (вставка списком + выбор вашего товара), <b>«📥 Импорт из Excel»</b>, перенос <b>«В жалобы»</b> из Сканирования или кнопки на карточках Ozon («⚑ в жалобы», «Собрать страницу»).</div></div>
-          <div class="help-step"><span class="help-num">2</span><div>Откройте <a href="https://seller.ozon.ru/app/messenger/?group=support_v2" target="_blank" class="link-ozon">seller.ozon.ru → Поддержка</a> в браузере (вкладка должна быть открыта).</div></div>
-          <div class="help-step"><span class="help-num">3</span><div>Выберите <b>тип жалобы</b> — три варианта:
-            <ul class="help-list" style="margin-top:4px;">
-              <li><b>Плагиат моих карточек</b> — стабильный путь через «Личный кабинет → Кабинет бренда → Жалоба → Плагиат → Использование моего контента или дизайна». Используется чаще всего.</li>
-              <li><b>Мой контент</b> — путь через «Товары и Цены → Контроль качества → Нарушение правил площадки → Использование моего контента или дизайна».</li>
-              <li><b>Мой бренд</b> — тот же путь, но с финальной кнопкой «Использование моего бренда».</li>
-            </ul>
-            При 5 ошибках подряд бот сделает паузу и попросит подтверждения — это защита от изменившегося интерфейса Ozon.
-            <div class="help-tip">В августе 2026 Ozon переименовал финальную кнопку: раньше она называлась «Использование моих фото, видео, текста». Бот понимает оба названия — новый интерфейс Ozon раскатывает волнами. Если Ozon изменит кнопки снова, бот отложит проблемные товары в «Ошибки» и покажет заметное сообщение со ссылкой на поддержку.</div>
-            <div class="help-tip">Лимит Ozon (~10 в час) считается по <b>новым обращениям</b>, а не по жалобам: внутри одного открытого обращения бот подаёт столько жалоб, сколько нужно. Бот сам считает обращения и предупредит в логе на 9-м за час. Если Ozon всё-таки ответит «создать новую жалобу можно будет через час» — бот подождёт и продолжит сам, это работает всегда и настройки не требует.</div>
-          </div></div>
-          <div class="help-step"><span class="help-num">4</span><div>При необходимости включите <b>«Отправлять несколько»</b>, затем нажмите <b>«📨 Начать»</b>. Бот сам откроет чат поддержки, введёт артикулы и прикрепит выбранные доказательства.</div></div>
-          <div class="help-tip">🧪 <b>Тест</b> — включите перед первым прогоном на 2–3 SKU: при локальной ошибке бот поставит пакет на паузу для проверки. Жалобы при этом реальные. После успешной проверки выключите «Тест» для большого или ночного пакета; критические защиты продолжат работать.</div>
-          <div class="help-tip">📎 При выключенном мульти-режиме доказательства отправляются по одному. При включённом бот сначала собирает весь подходящий набор в одном черновике и нажимает отправку один раз. Неопределённый черновик или смена чата всегда останавливают отправку.</div>
-          <div class="help-tip">📎 <b>Доказательства — два режима:</b><br>
-            <b>Общий пул</b> — файлы из зоны «Доказательства» во вкладке «Жалобы». Прикрепляются ко ВСЕМ жалобам.<br>
-            <b>Per-SKU</b> — файлы из блока «Доказательства по SKU» в Настройках. Привязываются к конкретному вашему SKU и прикрепляются только к нарушителям, которые были найдены по нему. Приоритет выше общего пула.<br>
-            Файлы до 45 MB сохраняются в браузере и переживают закрытие popup и перезагрузку.</div>
-          <div class="help-tip">🛎 <b>Блок «Проблемные SKU»</b> — показывает три категории:<br>
-            <i>Передано оператору</i> — обращение ушло на ручное рассмотрение (не ошибка, Ozon эскалировал);<br>
-            <i>Без нарушений</i> — Ozon проверил обращение, но не подтвердил нарушение;<br>
-            <i>Ошибки</i> — failed по техническим причинам (нет файлов, поле ввода недоступно, зацикливание).<br>
-            Для каждой категории: 📋 Копировать, ↻ В очередь (для повтора), 📥 XLSX, ✕ Очистить.</div>
-          <div class="help-tip">🗂 <b>«Список жалоб» — единственное место, где живут артикулы.</b> Заголовок группы — ваш товар и его название из каталога, рядом счётчик; группа сворачивается, есть поиск по номеру и названию. Артикулы без вашего товара собраны в жёлтую группу <b>«⚠ Без родительского»</b>. Во время работы бота в тех же группах видно статусы каждого артикула.</div>
-          <div class="help-tip">✏️ <b>Список редактируется прямо в группах.</b> Кнопка <b>«➕ Добавить артикулы»</b> в шапке открывает поле вставки (по одному на строку) и выбор вашего товара — артикулы сразу уйдут в нужную группу. Меню группы <b>«⋯»</b>: сменить родительский SKU у всей группы, добавить в неё артикулы, скопировать её SKU, удалить группу из списка. Клик по самому артикулу — копировать, открыть на OZON, сменить родителя, убрать; ✕ справа убирает быстро. Во время работы бота редактирование заблокировано.</div>
-          <div class="help-tip">⏳ <b>Ваш товар можно указать позже.</b> При переносе из Сканирования есть кнопка «Позже», а в зоне «➕ Добавить артикулы» поле «Ваш товар» можно оставить пустым — артикулы попадут в группу «⚠ Без родительского». Назначить товар потом: кнопка «Назначить…» у этой группы, меню группы «⋯» → «Сменить родительский SKU» или меню отдельного артикула. Если выбран путь «Плагиат моих карточек» или «Мой контент», перед запуском расширение предупредит: Ozon на этих путях обязательно спрашивает ваш товар. Незавершённый перенос переживает закрытие расширения — вернётесь и продолжите с того же места.</div>
-          <div class="help-tip">🎛 <b>Пульт на странице поддержки.</b> Пока бот работает, в углу seller.ozon.ru висит окно OZGuard: кнопки <b>⏸ / ▶ / ⏹</b> (остановка спросит подтверждение), полоса прогресса, счётчики «обработано · ошибки · осталось», текущий артикул и что делается прямо сейчас. Отдельно показываются пауза, ожидание лимита Ozon с таймером и отметка «нужно внимание». Окно сворачивается в маленький бейдж с процентом, перетаскивается (положение запоминается), а 📋 копирует лог.</div>
-          <div class="help-tip">⏱ <b>Большие пакеты</b> — бот не останавливается на лимите обращений, но сохраняет антибот-паузы между действиями. Остановить или поставить на паузу можно вручную. Во сне компьютера расширение не работает; после пробуждения сохранённая очередь возобновится.</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">🧪 Несколько товаров в обращении · BETA</div>
-          <p>Для путей «Мой контент» и «Мой бренд» можно объединить товары одного продавца. Перед отправкой расширение проверит продавцов и покажет состав каждого обращения, ваши товары, доказательства и причины разделения.</p>
-          <div class="help-tip">Сначала проверьте 2–3 SKU. Если включено продолжение остатка поштучно, оно сработает только после подтверждённого автоматического решения по первому SKU; иначе остаток получит статус «Не подано».</div>
-        </div>
-
-        <div class="help-section">
-          <div class="help-section-title">❓ Частые вопросы</div>
-          <ul class="help-list">
-            <li><b>«Товар не найден или не в наличии»</b> — OZON вернул категорию вместо карточки (товар снят с продажи). Это нормально — расширение пропускает такие SKU.</li>
-            <li><b>«OZON API не ответил» по многим SKU?</b> — обновите страницу ozon.ru (F5), убедитесь, что вы вошли в аккаунт, и повторите сканирование. При антибот-ограничении подождите 10–15 минут.</li>
-            <li><b>Прогресс долго не меняется?</b> — нажмите ⏸ Пауза, дождитесь восстановления страницы Ozon и нажмите ▶ Продолжить. При статусе «Требует проверки» сначала откройте чат и проверьте, была ли команда отправлена; не запускайте тот же пакет повторно до проверки.</li>
-            <li><b>Не запускаются жалобы?</b> — убедитесь что вкладка seller.ozon.ru открыта в браузере.</li>
-            <li><b>Ложный failed у файла?</b> — если бот показал failed, но файл в чате реально есть и Ozon ответил «Скрыли товар» — это было в старых версиях. С v5.9.11 верификация смотрит и на ответ бота, и на факт прикрепления.</li>
-            <li><b>Нужна помощь?</b> — <a href="https://codefic.ru" target="_blank" class="link-ozon">codefic.ru</a></li>
-          </ul>
-        </div>
-
-      </div>
+      <div id="helpModalBody" class="help-modal-body"></div>
     </div>
   </div>
-
+  <div id="helpTourPanel" class="help-tour-panel hidden" role="region" aria-live="polite" aria-label="Экскурсия по интерфейсу"></div>
+  <div id="helpTooltip" class="help-tooltip hidden" role="tooltip"></div>
   <nav class="tabs">
     <button class="tab active" data-tab="scan">Сканирование</button>
     <button class="tab" data-tab="prices">Цены</button>
@@ -220,13 +105,13 @@
     </div>
 
     <label class="field-label" for="skuInput">SKU (по одному на строку)</label>
-    <textarea id="skuInput" rows="4" placeholder="1234567890&#10;9876543210&#10;5555555555"></textarea>
+    <textarea id="skuInput" rows="4" placeholder="1234567890&#10;9876543210&#10;5555555555" data-help="SKU вашего товара на Ozon. По одному на строку; пустые и повторные значения пропускаются."></textarea>
 
     <section class="opt-group">
       <div class="opt-group-title">Параметры сбора</div>
       <div class="opt-group-body">
         <label class="opt-row">
-          <input type="checkbox" id="onlyChinaSellers">
+          <input type="checkbox" id="onlyChinaSellers" data-help="Строгий фильтр CN: продавцы без подтверждённой страны не попадут в результаты.">
           <span class="opt-row-title">Только продавцы из Китая <span class="country-code-badge">CN</span></span>
         </label>
         <span class="opt-row-note opt-row-note--indent">Продавцы без подтверждённой метки CN не попадут в результаты.</span>
@@ -245,10 +130,11 @@
 
     <div class="scan-controls">
       <div class="scan-controls-top">
-        <button id="btnStart" class="btn btn-primary btn-start">🔍 Найти конкурентов</button>
+        <button id="btnStart" class="btn btn-primary btn-start" data-help="Начинает настоящий сбор конкурентов. Его можно приостановить или остановить.">🔍 Найти конкурентов</button>
         <button id="btnPause" class="btn btn-icon btn-secondary" disabled title="Пауза">⏸</button>
         <button id="btnStop" class="btn btn-icon btn-danger" disabled title="Стоп">⏹</button>
       </div>
+      <p id="scanControlsReason" class="opt-row-note control-reason" role="status">Пауза и Стоп доступны после начала сбора.</p>
     </div>
 
     <div id="progressWrap" class="hidden">
@@ -346,12 +232,13 @@
       </div>
     </section>
     <div class="complaint-controls price-controls">
-      <button id="btnPriceStart" class="btn btn-primary btn-start" type="button">Собрать цены</button>
+      <button id="btnPriceStart" class="btn btn-primary btn-start" type="button" data-help="Перед запуском проверьте SKU и ссылку своего магазина; цены зависят от региона и условий банка.">Собрать цены</button>
       <button id="btnPricePause" class="btn btn-icon btn-secondary hidden" type="button" disabled title="Пауза" aria-label="Поставить сбор цен на паузу">⏸</button>
       <button id="btnPriceResume" class="btn btn-icon btn-secondary hidden" type="button" disabled title="Продолжить" aria-label="Продолжить сбор цен">▶</button>
       <button id="btnPriceStop" class="btn btn-icon btn-danger" type="button" disabled title="Стоп" aria-label="Остановить сбор цен">⏹</button>
-      <button id="btnPriceExport" class="btn btn-export" type="button" disabled>📥 CSV</button>
+      <button id="btnPriceExport" class="btn btn-export" type="button" disabled data-help="Скачивает выбранный сбор цен, включая частичные результаты и ошибки.">📥 CSV</button>
     </div>
+    <p id="priceControlsReason" class="opt-row-note control-reason" role="status">Пауза, Стоп и CSV появятся после начала сбора.</p>
     <div id="priceStatusCard" class="complaint-status price-status-card">
       <div class="complaint-status-header">
         <span id="priceStatusIcon" class="status-icon">○</span>
@@ -399,7 +286,7 @@
         </div>
         <div class="opt-actions-row">
           <button id="btnRepriceCalculate" class="btn btn-small" type="button">Рассчитать</button>
-          <button id="btnRepriceExport" class="btn btn-small" type="button" disabled>📥 Рекомендации CSV</button>
+          <button id="btnRepriceExport" class="btn btn-small" type="button" disabled data-help="CSV рекомендаций доступен после расчёта. Он не загружает цены в кабинет Ozon.">📥 Рекомендации CSV</button>
         </div>
         <p id="repriceInfo" class="opt-row-note" role="status">Рекомендации не изменяют цены в кабинете.</p>
         <div class="price-table-wrap"><table class="price-table reprice-table"><thead><tr><th>SKU</th><th>Сейчас, ₽</th><th>Рекомендация, ₽</th><th>Изменение, ₽</th><th>Результат</th></tr></thead><tbody id="repriceResults"></tbody></table></div>
@@ -733,10 +620,10 @@
         <div class="opt-col">
         <div class="field">
           <label class="field-label" for="complaintType">Тип жалобы</label>
-          <select id="complaintType" class="input-select" title="Тип жалобы — выбор навигационного пути в чате поддержки Ozon">
-            <option value="plagiat_legacy" title="Стабильный путь: Личный кабинет → Кабинет бренда → Жалоба → Плагиат">Плагиат моих карточек</option>
-            <option value="content_beta" title="Товары и Цены → Контроль качества → Нарушение правил площадки → Использование моего контента или дизайна (ранее «Использование моих фото, видео, текста»)">Мой контент</option>
-            <option value="brand_beta" title="Товары и Цены → Контроль качества → Нарушение правил площадки → Использование моего бренда">Мой бренд</option>
+          <select id="complaintType" class="input-select" title="Тип жалобы — выбор навигационного пути в чате поддержки Ozon" data-help="Ветки «Мой контент» и «Мой бренд» могут отличаться от привычного пути плагиата; сначала проверьте 2–3 SKU.">
+            <option value="plagiat_legacy">Плагиат моих карточек</option>
+            <option value="content_beta">Мой контент</option>
+            <option value="brand_beta">Мой бренд</option>
           </select>
         </div>
         <!-- v5.9.62: видно только для пути «Мой бренд» — Ozon спрашивает название бренда -->
@@ -748,7 +635,7 @@
         </div>
         <div class="opt-col">
         <label class="opt-row">
-          <input type="checkbox" id="complaintSafetyPausesEnabled" aria-describedby="complaintSafetyPausesHint">
+          <input type="checkbox" id="complaintSafetyPausesEnabled" aria-describedby="complaintSafetyPausesHint" data-help="«Тест» отправляет реальные жалобы и включает паузы при локальных ошибках.">
           <span class="opt-row-title">Тест</span>
         </label>
         <span id="complaintSafetyPausesHint" class="opt-row-note opt-row-note--indent">Прогоните 2–3 SKU: жалобы реальные, но при локальной ошибке бот встанет на паузу для проверки. Критические защиты работают всегда.</span>
@@ -764,7 +651,7 @@
     <section class="opt-group" id="complaintGroupsSection">
       <div class="opt-group-title">Несколько товаров в одном обращении · BETA</div>
       <div class="opt-group-body">
-        <label class="opt-row"><input id="complaintGroupsEnabled" type="checkbox"><span class="opt-row-title">Сгруппировать жалобы</span></label>
+        <label class="opt-row"><input id="complaintGroupsEnabled" type="checkbox" data-help="BETA: после настройки покажем предпросмотр состава обращений и файлов."><span class="opt-row-title">Сгруппировать жалобы</span></label>
         <span class="opt-row-note opt-row-note--indent">По умолчанию выключено. Работает для путей «Мой контент» и «Мой бренд». Перед запуском покажем состав каждого обращения и доказательства. Сначала проверьте на 2–3 SKU.</span>
         <div id="complaintGroupFields" class="opt-col hidden">
           <div class="field">
@@ -801,7 +688,7 @@
         <div class="hint-banner hint-info hint-compact" data-hint-host="evidence">
           <div class="hint-banner-body">
             <span class="hint-banner-icon">💡</span>
-            <span><b>Общий пул доказательств</b> — прикрепится ко всем SKU, для которых нет <i>персональных</i> файлов в Настройках (блок «Доказательства по SKU»). Если у вашего SKU есть персональные файлы, бот использует <b>именно их</b>, а общий пул игнорирует. Если нет ни тех ни других — жалоба помечается failed.</span>
+            <span><b>Общий пул доказательств</b> — прикрепится ко всем SKU, для которых нет <i>персональных</i> файлов в Настройках (блок «Доказательства по SKU»). Если у вашего SKU есть персональные файлы, бот использует <b>именно их</b>, а общий пул игнорирует. Если нет ни тех ни других, бот пропустит жалобу и покажет причину в списке ошибок.</span>
           </div>
           <button class="hint-close" data-hint="evidence" title="Скрыть">✕</button>
         </div>
@@ -825,11 +712,12 @@
     <p id="complaintClearHint" class="opt-row-note complaint-clear-hint">Очистка сессии доступна после остановки бота.</p>
     <!-- Управление -->
     <div class="complaint-controls">
-      <button id="btnComplaintStart" class="btn btn-primary btn-start">📨 Начать</button>
+      <button id="btnComplaintStart" class="btn btn-primary btn-start" data-help="Запускает отправку реальных жалоб в чат поддержки. Убедитесь, что файлы и родительские SKU верны.">📨 Начать</button>
       <button id="btnComplaintPause" class="btn btn-icon btn-secondary" disabled title="Пауза">⏸</button>
       <button id="btnComplaintStop" class="btn btn-icon btn-danger" disabled title="Стоп">⏹</button>
     </div>
 
+    <p id="complaintControlsReason" class="opt-row-note control-reason" role="status">Пауза и Стоп доступны после запуска; для отправки нужен PRO и готовые доказательства.</p>
     <!-- Статус + прогресс -->
     <div id="complaintStatus" class="complaint-status hidden">
       <div class="complaint-status-header">
@@ -912,6 +800,15 @@
     </div>
 
     <!-- Блок ручной проверки для autostop-паузы и старых восстановленных сессий -->
+    <section id="followupSection" class="opt-group hidden" aria-labelledby="followupTitle">
+      <div id="followupTitle" class="opt-group-title">Нужны доказательства</div>
+      <div class="opt-group-body">
+        <p class="opt-row-note">Это дополнение к существующему обращению. Сверьте запрос Ozon в исходном чате, добавьте новые файлы и отправляйте после остановки основной очереди.</p>
+        <div id="followupList" class="followup-list"></div>
+        <p id="followupInfo" class="opt-row-note" role="status"></p>
+      </div>
+    </section>
+
     <div id="complaintLimitGate" class="complaint-limit-gate hidden">
       <div class="limit-gate-body">
         <span class="limit-gate-icon">⏸</span>
@@ -998,6 +895,9 @@
   <script src="../shared/complaint-groups.js"></script>
   <script src="../shared/prices.js"></script>
   <script src="../shared/repricing.js"></script>
+  <script src="../shared/help-tooltip.js"></script>
+  <script src="help/catalog.js"></script>
+  <script src="help/ui.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
