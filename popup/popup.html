@@ -805,8 +805,12 @@
     </div>
 
     <!-- Блок ручной проверки для autostop-паузы и старых восстановленных сессий -->
+    <button id="btnFollowupShow" type="button" class="btn btn-small followup-show hidden" aria-controls="followupSection" aria-expanded="false">Показать блок «Нужны доказательства»</button>
     <section id="followupSection" class="opt-group hidden" aria-labelledby="followupTitle">
-      <div id="followupTitle" class="opt-group-title">Нужны доказательства</div>
+      <div class="followup-section-head">
+        <div id="followupTitle" class="opt-group-title">Нужны доказательства</div>
+        <button id="btnFollowupClose" type="button" class="btn btn-small" aria-label="Закрыть блок Нужны доказательства" title="Скрыть блок. Сохранённые обращения останутся доступны.">Закрыть</button>
+      </div>
       <div class="opt-group-body">
         <p class="opt-row-note">Это дополнение к существующему обращению. Сверьте запрос Ozon в исходном чате, добавьте новые файлы и отправляйте после остановки основной очереди.</p>
         <div id="followupList" class="followup-list"></div>

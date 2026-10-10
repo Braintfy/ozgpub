@@ -669,6 +669,10 @@ button:focus-visible {
 .help-spotlight { outline: 3px solid var(--brand) !important; outline-offset: 3px; border-radius: var(--r-sm); }
 .help-tooltip { position: fixed; z-index: 3100; width: max-content; max-width: min(270px, calc(100vw - 16px)); overflow-wrap: anywhere; padding: var(--s2); color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-sm); box-shadow: 0 3px 12px rgba(26,26,46,.2); font-size: 11px; line-height: 1.4; }
 .control-reason { margin: 0 var(--s3) var(--s2); color: var(--text-2); }
+.followup-section-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); }
+.followup-section-head .opt-group-title { margin: 0; }
+.followup-section-head .btn { flex-shrink: 0; }
+.followup-show { margin: 0 0 var(--s2); }
 .followup-list { display: flex; flex-direction: column; gap: var(--s2); }
 .followup-card { padding: var(--s3); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); overflow-wrap: anywhere; }
 .followup-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2); font-weight: 600; }
