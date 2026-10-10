@@ -805,14 +805,16 @@
     </div>
 
     <!-- Блок ручной проверки для autostop-паузы и старых восстановленных сессий -->
-    <button id="btnFollowupShow" type="button" class="btn btn-small followup-show hidden" aria-controls="followupSection" aria-expanded="false">Показать блок «Нужны доказательства»</button>
+    <button id="btnFollowupShow" type="button" class="btn btn-small followup-show hidden" aria-controls="followupSection" aria-expanded="false" data-help="Показывает сохранённые обращения и их статусы. Ничего не отправляет.">Показать блок «Нужны доказательства»</button>
     <section id="followupSection" class="opt-group hidden" aria-labelledby="followupTitle">
       <div class="followup-section-head">
         <div id="followupTitle" class="opt-group-title">Нужны доказательства</div>
-        <button id="btnFollowupClose" type="button" class="btn btn-small" aria-label="Закрыть блок Нужны доказательства" title="Скрыть блок. Сохранённые обращения останутся доступны.">Закрыть</button>
+        <button id="btnFollowupClose" type="button" class="btn btn-small" aria-label="Закрыть блок Нужны доказательства" data-help="Только скрывает этот блок. Обращения сохраняются, работа бота продолжается.">Закрыть</button>
       </div>
       <div class="opt-group-body">
-        <p class="opt-row-note">Это дополнение к существующему обращению. Сверьте запрос Ozon в исходном чате, добавьте новые файлы и отправляйте после остановки основной очереди.</p>
+        <p class="opt-row-note">Здесь сохранены прежние обращения и их статусы. Ozon может попросить ещё документы, отправку может понадобиться проверить, а обработанные вручную товары остаются для истории.</p>
+        <p class="opt-row-note">Если нужны файлы: откройте чат по ссылке, прочитайте ответ Ozon, добавьте новые документы и отметьте их в карточке. Нажмите «Отправить дополнение» после завершения очереди или «Стоп». Обычная пауза не разрешает досылку.</p>
+        <p class="opt-row-note">«Закрыть» только скрывает блок — обращения сохраняются. Чтобы вернуть его, нажмите «Показать блок» под прогрессом. Подробности: «Помощь» → «Дополнить обращение».</p>
         <div id="followupList" class="followup-list"></div>
         <p id="followupInfo" class="opt-row-note" role="status"></p>
       </div>
